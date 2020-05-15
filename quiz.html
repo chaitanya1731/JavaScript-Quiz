@@ -1,0 +1,159 @@
+<title>Simple Math Quiz</title> 
+
+<script type="text/javascript">
+    let totalCount = 0;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let x1 = 0;
+    let x2 = 0;
+    let y1 = 0;
+    let y2 = 0;
+    let correctAnswer = 0;
+    let answerEntered = 0;
+</script>
+
+<div align="center">  
+    <h2 style="font-family: arial;">Simple Math Quiz</h2> 
+    <table>
+        <tr>
+            <th>
+                <button onclick="integerAdd()" class="btn block">Integer Addition</button>
+            </th>
+            <th>
+                <button onclick="integerSub()" class="btn block">Integer Subtraction</button>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <button onclick="floatAdd()" class="btn block">Float Addition</button>
+            </th>
+            <th>
+                <button onclick="floatSub()" class="btn block">Float Subtraction</button>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <button onclick="complexAdd()"  class="btn block">Complex Addition</button>
+            </th>
+            <th>
+                <button onclick="complexSub()"  class="btn block">Complex Subtraction</button>
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <button onclick="checkScore()"  class="btn block">Check Score</button>
+            </th>
+            <th>
+                <button onclick="reset()" class="btn block">Reset</button>
+            </th>
+        </tr>
+    </table>
+</div>
+
+
+
+
+<script> 
+    function integerAdd() {
+        x1 = generateRandomNumber();
+        x2 = generateRandomNumber();
+        correctAnswer = parseInt(x1) + parseInt(x2);
+        answerEntered = prompt(`${x1} + ${x2} = `);
+        if (answerEntered === null) return;
+        checkAnswer(parseInt(answerEntered), correctAnswer);
+    }
+
+    function integerSub() { 
+        x1 = generateRandomNumber();
+        x2 = generateRandomNumber();
+        correctAnswer = parseInt(x1) - parseInt(x2);
+        answerEntered = prompt(`${x1} - ${x2} = `); 
+        if (answerEntered === null) return;
+        checkAnswer(parseInt(answerEntered), correctAnswer);
+    }
+
+    function floatAdd() { 
+        x1 = generateRandomNumber() + "." + generateRandomNumber();
+        x2 = generateRandomNumber() + "." + generateRandomNumber();
+        correctAnswer = ((parseFloat(x1) * 10 + parseFloat(x2) * 10) / 10);
+        answerEntered = prompt(`${x1} + ${x2} = `); 
+        if (answerEntered === null) return;
+        checkAnswer(parseFloat(answerEntered), parseFloat(correctAnswer));
+    }
+
+    function floatSub() { 
+        x1 = generateRandomNumber() + "." + generateRandomNumber();
+        x2 = generateRandomNumber() + "." + generateRandomNumber();
+        correctAnswer = ((parseFloat(x1) * 10 - parseFloat(x2) * 10) / 10);
+        answerEntered = prompt(`${x1} - ${x2} = `); 
+        if (answerEntered === null) return;
+        checkAnswer(parseFloat(answerEntered), parseFloat(correctAnswer));
+    }
+
+    function complexAdd() { 
+        x1 = generateRandomNumber();
+        x2 = generateRandomNumber();
+        y1 = generateRandomNumber();
+        y2 = generateRandomNumber();
+        const real = x1 + y1;
+        const imaginary = x2 + y2;
+        correctAnswer = `${real} + ${imaginary}i`.replace(/ /g, '');
+        answerEntered = prompt(`(${x1} + ${x2}i) + (${y1} + ${y2}i)`);
+        if (answerEntered === null) return;
+        answerEntered = answerEntered.replace(/ /g, '');
+        checkAnswer(answerEntered, correctAnswer);
+    }
+
+    function complexSub() { 
+        x1 = generateRandomNumber();
+        x2 = generateRandomNumber();
+        y1 = generateRandomNumber();
+        y2 = generateRandomNumber();
+        const real = x1 - y1;
+        const imaginary = x2 - y2;
+        correctAnswer = `${real} + ${imaginary}i`.split(' ').join('').replace(/\+\-/, '-');
+        answerEntered = prompt(`(${x1} + ${x2}i) - (${y1} + ${y2}i)`);
+        if (answerEntered === null) return;
+        answerEntered = answerEntered.split(' ').join('').replace(/\+\-/, '-');
+        checkAnswer(answerEntered, correctAnswer);
+    }
+
+    function checkScore() { 
+            alert(`Total: ${totalCount} \nCorrect: ${correctCount} \nWrong: ${wrongCount}`);
+    }
+
+    function reset() { 
+        totalCount = 0;
+        correctCount = 0;
+        wrongCount = 0;
+    }
+
+    function generateRandomNumber(){
+        return Math.floor(Math.random() * 10);
+    }
+
+    function checkAnswer(answerEntered, correctAnswer){
+        if(answerEntered === correctAnswer){
+            totalCount++; correctCount++;
+            alert(`Correct Answer. \nTotal: ${totalCount} \nCorrect: ${correctCount} \nWrong: ${wrongCount}`);
+        }
+        else{
+            totalCount++; wrongCount++;
+            alert(`Wrong Answer. \nThe correct answer is: ${correctAnswer} \nTotal: ${totalCount} \nCorrect: ${correctCount} \nWrong: ${wrongCount}`);
+        }
+    }
+</script> 
+
+<style>
+    th, td {
+        border: 1px solid #ddd;
+        padding: 5px;
+    }
+    .block {
+        width: 100%;
+        border: 1px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+</style>
